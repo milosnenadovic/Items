@@ -1,0 +1,51 @@
+﻿@using Items.Shared.DTO;
+
+@{
+	ViewData["Title"] = "Items";
+
+	List<ItemDto> Items = new();
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Category</th>
+			<th>Producer</th>
+			<th>Supplier</th>
+			<th>Price</th>
+			<th>Created</th>
+			<th>Modified</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Items.Any())
+		{
+			foreach (ItemDto item in Items)
+			{
+				<tr>
+					<td>@item.Name</td>
+					<td>@item.Description</td>
+					<td>@item.Category</td>
+					<td>@item.Producer</td>
+					<td>@item.Supplier</td>
+					<td>@item.Price</td>
+					<td>@item.Created</td>
+					<td>@item.LastModified</td>
+				</tr>
+			}
+		}
+		else
+		{
+			<tr>
+				<td colspan="8">
+					Items list empty
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

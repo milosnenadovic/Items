@@ -4,12 +4,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Items.Infrastructure.Context;
 
-public class ApplicationDBContextInitialiser
+public class ApplicationDbContextInitialiser
 {
-	private readonly ILogger<ApplicationDBContextInitialiser> _logger;
+	private readonly ILogger<ApplicationDbContextInitialiser> _logger;
 	private readonly ApplicationDbContext _context;
 
-	public ApplicationDBContextInitialiser(ILogger<ApplicationDBContextInitialiser> logger, ApplicationDbContext context)
+	public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context)
 	{
 		_logger = logger;
 		_context = context;

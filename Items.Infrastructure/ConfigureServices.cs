@@ -23,7 +23,7 @@ public static class ConfigureServices
 		});
 
 		services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
-		services.AddScoped<ApplicationDBContextInitialiser>();
+		services.AddScoped<ApplicationDbContextInitialiser>();
 
 		// Registering services
 		services.AddScoped<ICategoryService, CategoryService>();

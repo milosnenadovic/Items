@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>edba66bc-6bfd-47c3-b2b6-95529d8830e6</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Items.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\Items\GetItemsRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DTO\Common\BaseQueryStringParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DTO\Common\PaginatedList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DTO\ItemDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\GetItemsSortBy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Errors\Errors.AlreadyExists.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Errors\Errors.CantFind.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Errors\Errors.DatabaseAdd.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Errors\Errors.DatabaseGet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Errors\Errors.DatabaseUpdate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Errors\Errors.InvalidData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Errors\Errors.Required.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Response\ErrorApiResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Response\ErrorCodes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Response\ErrorResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Response\IResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Response\SuccessResponse.cs" />
+  </ItemGroup>
+</Project>

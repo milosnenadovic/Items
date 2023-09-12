@@ -2,7 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Items.Infrastructure;
+using Items.Application.Mappers;
 using FluentValidation;
+using MapsterMapper;
 
 namespace Items.Application;
 
@@ -18,6 +20,10 @@ public static class ConfigureServices
 
 		// Adding Items.Infrastructure services
 		services.AddInfrastructureServices(configuration);
+
+		// Add Mapster configuration
+		services.AddScoped<IMapper, Mapper>();
+		services.RegisterMapsterConfiguration();
 
 		return services;
 	}

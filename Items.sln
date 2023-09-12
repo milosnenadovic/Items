@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Items.Infrastructure", "Ite
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Items.Application", "Items.Application\Items.Application.csproj", "{F83BF34A-52EB-44F2-A099-2AE36C819E66}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Items.Shared", "Items.Shared\Items.Shared.shproj", "{EDBA66BC-6BFD-47C3-B2B6-95529D8830E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,5 +41,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C36FC85E-1FCB-4B23-85A8-BC00F9CE3115}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Items.Shared\Items.Shared.projitems*{edba66bc-6bfd-47c3-b2b6-95529d8830e6}*SharedItemsImports = 13
+		Items.Shared\Items.Shared.projitems*{f83bf34a-52eb-44f2-a099-2ae36c819e66}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

@@ -7,7 +7,7 @@ using Items.Shared.Response;
 namespace Items.Server.Controllers.Base;
 
 [ApiController]
-[Route("api/[controller]/[action]")]
+[Route("[controller]/[action]")]
 public class BaseController : Controller
 {
 	protected readonly ISender Mediator;

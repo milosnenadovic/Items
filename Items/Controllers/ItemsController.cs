@@ -19,4 +19,18 @@ public class ItemsController : BaseController
 		var response = ConvertToResponse(result);
 		return View(response);
 	}
+
+	[HttpPost]
+    public async Task<IActionResult> Add(AddItemRequest request)
+	{
+        return View("Index", new AddItemRequest
+        {
+            Name = request.Name,
+            Description = request.Description,
+            CategoryId = request.CategoryId,
+            Price = request.Price,
+            Producer = request.Producer,
+            Supplier = request.Supplier
+        });
+    }
 }

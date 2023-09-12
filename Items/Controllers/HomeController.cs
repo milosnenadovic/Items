@@ -1,4 +1,5 @@
 ﻿using Items.Models;
+using Items.Shared.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,6 +16,7 @@ namespace Items.Controllers
 
 		public IActionResult Index()
 		{
+			ViewData["Categories"] = new List<CategoryDto> { new() { Name = "Food1", Id = 1 }, new() { Name = "Drink1", Id = 2 } };
 			return View();
 		}
 

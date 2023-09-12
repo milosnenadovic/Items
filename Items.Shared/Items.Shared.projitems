@@ -9,9 +9,11 @@
     <Import_RootNamespace>Items.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\Items\AddItemRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\Items\GetItemsRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DTO\Common\BaseQueryStringParameters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DTO\Common\PaginatedList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DTO\CategoryDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DTO\ItemDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\GetItemsSortBy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Errors\Errors.AlreadyExists.cs" />

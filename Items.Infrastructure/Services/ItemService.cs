@@ -28,6 +28,14 @@ public class ItemService : IItemService
 	#endregion
 
 	#region Existing
+	public async Task<bool> Existing(int id)
+	{
+		if (_dbContext.Items.Any(x => x.Id == id))
+			return await Task.FromResult(true);
+		else
+			return await Task.FromResult(false);
+	}
+
 	public async Task<bool> Existing(string name, int category)
 	{
 		if (_dbContext.Items.Any(x => x.Name == name && x.CategoryId == category))
@@ -99,7 +107,8 @@ public class ItemService : IItemService
 	{
 		try
 		{
-			var dbItem = await _dbContext.Items.SingleAsync(x => x.Id == id);
+			var dbItem = await _dbContext.Items
+				.SingleAsync(x => x.Id == id);
 
 			dbItem.Name = name;
 			dbItem.Description = description;
@@ -111,8 +120,9 @@ public class ItemService : IItemService
 
 			await _dbContext.SaveChangesAsync();
 		}
-		catch
+		catch (Exception ex)
 		{
+			_logger.LogWarning(ex.Message);
 			return await Task.FromResult(false);
 		}
 

@@ -41,13 +41,16 @@ public class AddItemCommandHandler : IRequestHandler<AddItemCommand, IResponse<b
 	public async Task<IResponse<bool>> Handle(AddItemCommand request, CancellationToken cancellationToken)
 	{
 		var existingItem = await _itemService.Existing(request.Name, request.CategoryId);
-		if (existingItem) return new ErrorResponse<bool>((int)ErrorCodes.AlreadyExists, ErrorCodes.AlreadyExists.ToString(), Errors.AlreadyExists.Item);
+		if (existingItem)
+			return new ErrorResponse<bool>((int)ErrorCodes.AlreadyExists, ErrorCodes.AlreadyExists.ToString(), Errors.AlreadyExists.Item);
 
 		var existingCategory = await _categoryService.Existing(request.CategoryId);
-		if (!existingCategory) return new ErrorResponse<bool>((int)ErrorCodes.CantFind, ErrorCodes.CantFind.ToString(), Errors.CantFind.Category);
+		if (!existingCategory)
+			return new ErrorResponse<bool>((int)ErrorCodes.CantFind, ErrorCodes.CantFind.ToString(), Errors.CantFind.Category);
 
 		var savedItem = await _itemService.Add(request.Name, request.Description, request.CategoryId, request.Producer, request.Supplier, request.Price);
-		if (!savedItem) return new ErrorResponse<bool>((int)ErrorCodes.DatabaseAdd, ErrorCodes.DatabaseAdd.ToString(), Errors.DatabaseAdd.Item);
+		if (!savedItem)
+			return new ErrorResponse<bool>((int)ErrorCodes.DatabaseAdd, ErrorCodes.DatabaseAdd.ToString(), Errors.DatabaseAdd.Item);
 
 		return new SuccessResponse<bool>(await Task.FromResult(true));
 	}

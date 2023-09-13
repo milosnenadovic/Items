@@ -1,34 +1,27 @@
-﻿using Items.Models;
-using Items.Shared.DTO;
+﻿using Items.Application.Categories.Queries.GetActiveCategories;
+using Items.Controllers.Base;
+using Items.Models;
+using MapsterMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Items.Controllers
+namespace Items.Controllers;
+
+public class HomeController : BaseController
 {
-	public class HomeController : Controller
+	public HomeController(ISender mediator, IMapper mapper) : base(mediator, mapper) { }
+
+	public async Task<IActionResult> Index()
 	{
-		private readonly ILogger<HomeController> _logger;
+		var categories = await Mediator.Send(new GetActiveCategoriesQuery());
+		ViewData["Categories"] = categories.Result;
+		return View();
+	}
 
-		public HomeController(ILogger<HomeController> logger)
-		{
-			_logger = logger;
-		}
-
-		public IActionResult Index()
-		{
-			ViewData["Categories"] = new List<CategoryDto> { new() { Name = "Food1", Id = 1 }, new() { Name = "Drink1", Id = 2 } };
-			return View();
-		}
-
-		public IActionResult Privacy()
-		{
-			return View();
-		}
-
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-		}
+	[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+	public IActionResult Error()
+	{
+		return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 	}
 }

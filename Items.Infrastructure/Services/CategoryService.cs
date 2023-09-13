@@ -2,6 +2,7 @@
 using Items.Infrastructure.Interfaces;
 using Items.Infrastructure.Context;
 using Items.Domain.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace Items.Infrastructure.Service;
 
@@ -9,10 +10,12 @@ public class CategoryService : ICategoryService
 {
 	#region Setup
 	private readonly IApplicationDbContext _dbContext;
+	private readonly ILogger<ItemService> _logger;
 
-	public CategoryService(IApplicationDbContext dbContext)
+	public CategoryService(IApplicationDbContext dbContext, ILogger<ItemService> logger)
 	{
 		_dbContext = dbContext;
+		_logger = logger;
 	}
 	#endregion
 
@@ -45,19 +48,19 @@ public class CategoryService : ICategoryService
 	#region GetCategories
 	public async Task<List<Category>> GetCategories(string? filterName, DateTime? createdFrom, DateTime? createdTo, bool? active)
 	{
-		var contracts = _dbContext.Categories
+		var categories = _dbContext.Categories
 			.AsQueryable();
 
 		if (!string.IsNullOrEmpty(filterName))
-			contracts = contracts.Where(x => x.Name.Contains(filterName));
+			categories = categories.Where(x => x.Name.Contains(filterName));
 		if (createdFrom is not null)
-			contracts = contracts.Where(x => x.Created >= createdFrom);
+			categories = categories.Where(x => x.Created >= createdFrom);
 		if (createdTo is not null)
-			contracts = contracts.Where(x => x.Created <= createdTo);
+			categories = categories.Where(x => x.Created <= createdTo);
 		if (active is not null)
-			contracts = contracts.Where(x => x.Active == active);
+			categories = categories.Where(x => x.Active == active);
 
-		return await contracts.ToListAsync();
+		return await categories.ToListAsync();
 	}
 	#endregion
 
@@ -74,8 +77,9 @@ public class CategoryService : ICategoryService
 			_dbContext.Categories.Add(newCategory);
 			await _dbContext.SaveChangesAsync();
 		}
-		catch
+		catch (Exception ex)
 		{
+			_logger.LogWarning(ex.Message);
 			return await Task.FromResult(false);
 		}
 
@@ -88,15 +92,17 @@ public class CategoryService : ICategoryService
 	{
 		try
 		{
-			var dbCategory = await _dbContext.Categories.SingleAsync(x => x.Id == id);
+			var dbCategory = await _dbContext.Categories
+				.SingleAsync(x => x.Id == id);
 
 			dbCategory.Name = name;
 			dbCategory.Active = active;
 
 			await _dbContext.SaveChangesAsync();
 		}
-		catch
+		catch (Exception ex)
 		{
+			_logger.LogWarning(ex.Message);
 			return await Task.FromResult(false);
 		}
 

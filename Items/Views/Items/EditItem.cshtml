@@ -1,16 +1,23 @@
 ﻿@using Items.Shared.Contracts.Items
 @using Items.Shared.DTO
-@model AddItemRequest
+@model UpdateItemRequest
 
 @{
-	ViewData["Title"] = "Add item";
+	ViewData["Title"] = "Edit item";
 	var categories = ViewData["Categories"] as List<CategoryDto>;
 }
 
-<h2>Add item</h2>
+<h2>Edit item</h2>
 
-<form asp-controller="Items" asp-action="Add" method="post">
+<form asp-controller="Items" asp-action="Update" method="post">
 	@Html.AntiForgeryToken()
+
+	<div class="form-group">
+		<label asp-for="Id">Id: @Model.Id</label>
+		<input asp-for="Id" class="form-control" type="number" hidden/>
+		<span asp-validation-for="Id" class="text-danger"></span>
+	</div>
+
 	<div class="form-group">
 		<label asp-for="Name">Name</label>
 		<input asp-for="Name" class="form-control" />
@@ -56,5 +63,13 @@
 		<span asp-validation-for="Supplier" class="text-danger"></span>
 	</div>
 
-	<button type="submit" class="btn btn-primary">Add</button>
+	<div class="form-group">
+		<div class="form-check">
+			<input asp-for="Active" class="form-check-input" />
+			<label class="form-check-label" asp-for="Active">Active</label>
+		</div>
+		<span asp-validation-for="Active" class="text-danger"></span>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Edit</button>
 </form>

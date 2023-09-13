@@ -31,7 +31,8 @@ public class GetActiveCategoriesQueryHandler : IRequestHandler<GetActiveCategori
 	public async Task<IResponse<List<CategoryDto>>> Handle(GetActiveCategoriesQuery request, CancellationToken cancellationToken)
 	{
 		var existingCategories = await _categoryService.GetCategories(request.FilterName, createdFrom: null, createdTo: null, true);
-		if (existingCategories is null) return new ErrorResponse<List<CategoryDto>>((int)ErrorCodes.DatabaseGet, ErrorCodes.DatabaseGet.ToString(), Errors.DatabaseGet.Category);
+		if (existingCategories is null)
+			return new ErrorResponse<List<CategoryDto>>((int)ErrorCodes.DatabaseGet, ErrorCodes.DatabaseGet.ToString(), Errors.DatabaseGet.Category);
 
 		var categories = existingCategories.Adapt<List<CategoryDto>>();
 

@@ -6,7 +6,7 @@ public class ErrorResponse : IResponse
 {
 	public bool IsSuccess => false;
 	public string Message { get; set; }
-	public string DetailedMessage { get; set; }
+	public string? DetailedMessage { get; set; }
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public int? ErrorCode { get; set; }
 
@@ -17,7 +17,7 @@ public class ErrorResponse : IResponse
 		ErrorCode = errorCode;
 	}
 
-	public ErrorResponse(int? errorCode, string message, string detailedMessage = "")
+	public ErrorResponse(int? errorCode, string message, string? detailedMessage = "")
 	{
 		ErrorCode = errorCode;
 		Message = message;
@@ -59,7 +59,7 @@ public class ErrorResponse<T> : ErrorResponse, IResponse<T>
 	{
 	}
 
-	public ErrorResponse(int? errorCode, string message, string detailedMessage = "") : base(errorCode, message, detailedMessage)
+	public ErrorResponse(int? errorCode, string message, string? detailedMessage = "") : base(errorCode, message, detailedMessage)
 	{
 	}
 

@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using Items.Shared.Errors;
+﻿using Items.Shared.Errors;
+using FluentValidation;
 
 namespace Items.Application.Items.Commands.AddItem;
 
@@ -14,7 +14,6 @@ public class AddItemCommandValidator : AbstractValidator<AddItemCommand>
             .NotEmpty().WithMessage(Errors.Required.Description)
             .MaximumLength(96).WithMessage(Errors.InvalidData.DescriptionLongerThan96);
         RuleFor(v => v.CategoryId)
-            .NotNull().WithMessage(Errors.Required.Category)
             .GreaterThan(0).WithMessage(Errors.InvalidData.CategoryId);
         RuleFor(v => v.Producer)
             .NotEmpty().WithMessage(Errors.Required.Producer)

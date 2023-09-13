@@ -44,14 +44,17 @@ public class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand, IResp
 
 	public async Task<IResponse<bool>> Handle(UpdateItemCommand request, CancellationToken cancellationToken)
 	{
-		var existingItem = await _itemService.Existing(request.Name, request.CategoryId);
-		if (!existingItem) return new ErrorResponse<bool>((int)ErrorCodes.CantFind, ErrorCodes.CantFind.ToString(), Errors.CantFind.Item);
+		var existingItem = await _itemService.Existing(request.Id);
+		if (!existingItem)
+			return new ErrorResponse<bool>((int)ErrorCodes.CantFind, ErrorCodes.CantFind.ToString(), Errors.CantFind.Item);
 
 		var existingCategory = await _categoryService.Existing(request.CategoryId);
-		if (!existingCategory) return new ErrorResponse<bool>((int)ErrorCodes.CantFind, ErrorCodes.CantFind.ToString(), Errors.CantFind.Category);
+		if (!existingCategory)
+			return new ErrorResponse<bool>((int)ErrorCodes.CantFind, ErrorCodes.CantFind.ToString(), Errors.CantFind.Category);
 
 		var savedItem = await _itemService.Update(request.Id, request.Name, request.Description, request.CategoryId, request.Producer, request.Supplier, request.Price, request.Active);
-		if (!savedItem) return new ErrorResponse<bool>((int)ErrorCodes.DatabaseUpdate, ErrorCodes.DatabaseUpdate.ToString(), Errors.DatabaseUpdate.Item);
+		if (!savedItem)
+			return new ErrorResponse<bool>((int)ErrorCodes.DatabaseUpdate, ErrorCodes.DatabaseUpdate.ToString(), Errors.DatabaseUpdate.Item);
 
 		return new SuccessResponse<bool>(await Task.FromResult(true));
 	}

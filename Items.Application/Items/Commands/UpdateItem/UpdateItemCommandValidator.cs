@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using Items.Shared.Errors;
+﻿using Items.Shared.Errors;
+using FluentValidation;
 
 namespace Items.Application.Items.Commands.UpdateItem;
 
@@ -8,7 +8,6 @@ public class UpdateItemCommandValidator : AbstractValidator<UpdateItemCommand>
     public UpdateItemCommandValidator()
 	{
 		RuleFor(v => v.Id)
-			.NotNull().WithMessage(Errors.Required.Id)
 			.GreaterThan(0).WithMessage(Errors.InvalidData.Id);
 		RuleFor(v => v.Name)
             .NotEmpty().WithMessage(Errors.Required.Name)
@@ -17,7 +16,6 @@ public class UpdateItemCommandValidator : AbstractValidator<UpdateItemCommand>
             .NotEmpty().WithMessage(Errors.Required.Description)
             .MaximumLength(96).WithMessage(Errors.InvalidData.DescriptionLongerThan96);
         RuleFor(v => v.CategoryId)
-            .NotNull().WithMessage(Errors.Required.Category)
             .GreaterThan(0).WithMessage(Errors.InvalidData.CategoryId);
         RuleFor(v => v.Producer)
             .NotEmpty().WithMessage(Errors.Required.Producer)

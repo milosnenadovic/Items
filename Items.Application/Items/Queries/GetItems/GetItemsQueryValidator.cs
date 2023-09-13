@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using Items.Shared.Errors;
+﻿using Items.Shared.Errors;
+using FluentValidation;
 
 namespace Items.Application.Items.Queries.GetItems;
 
@@ -12,10 +12,8 @@ public class GetItemsQueryValidator : AbstractValidator<GetItemsQuery>
 		RuleFor(v => v.FilterDescription)
 			.MaximumLength(96).WithMessage(Errors.InvalidData.DescriptionLongerThan96);
 		RuleFor(v => v.PageNumber)
-			.NotNull().WithMessage(Errors.Required.PageNumber)
 			.GreaterThan(0).WithMessage(Errors.InvalidData.PageNumber);
 		RuleFor(v => v.PageSize)
-			.NotNull().WithMessage(Errors.Required.PageSize)
 			.GreaterThan(0).WithMessage(Errors.InvalidData.PageSize);
 	}
 }

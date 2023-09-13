@@ -7,6 +7,5 @@ public enum ErrorCodes
 	DatabaseUpdate,
 	DatabaseGet,
 	CantFind,
-	NotAllowed,
 	AlreadyExists
 }

@@ -1,9 +1,12 @@
 ﻿@using Items.Shared.DTO;
+@using Items.Shared.DTO.Common;
 
 @{
 	ViewData["Title"] = "Items";
-
-	List<ItemDto> Items = new();
+	var Items = new List<ItemDto>();
+	var PaginatedItems = Model.Value as PaginatedList<ItemDto>;
+	if (PaginatedItems is not null)
+		Items = PaginatedItems.Items;
 }
 <h1>@ViewData["Title"]</h1>
 
@@ -18,10 +21,11 @@
 			<th>Price</th>
 			<th>Created</th>
 			<th>Modified</th>
+			<th>Edit</th>
 		</tr>
 	</thead>
 	<tbody>
-		@if (Items.Any())
+		@if (Items?.Any() ?? false)
 		{
 			foreach (ItemDto item in Items)
 			{
@@ -34,6 +38,9 @@
 					<td>@item.Price</td>
 					<td>@item.Created</td>
 					<td>@item.LastModified</td>
+					<td>
+						<a style="text-decoration:none" href="@Url.Action("EditItem", "Items", new { itemId = item.Id })">*</a>
+					</td>
 				</tr>
 			}
 		}

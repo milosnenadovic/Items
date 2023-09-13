@@ -11,7 +11,7 @@ public static class MapsterConfig
 	{
 		TypeAdapterConfig<Item, Shared.DTO.ItemDto>
 			.NewConfig()
-			.Map(dest => dest.Category, src => src.Category.Name == null);
+			.Map(dest => dest.Category, src => src.Category == null ? string.Empty : src.Category.Name);
 
 		TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
 	}

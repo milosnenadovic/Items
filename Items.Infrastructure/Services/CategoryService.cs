@@ -25,6 +25,14 @@ public class CategoryService : ICategoryService
 	#endregion
 
 	#region Existing
+	public async Task<bool> Existing(int id)
+	{
+		if (_dbContext.Categories.Any(x => x.Id == id && x.Active))
+			return await Task.FromResult(true);
+		else
+			return await Task.FromResult(false);
+	}
+
 	public async Task<bool> Existing(string name)
 	{
 		if (_dbContext.Categories.Any(x => x.Name == name))

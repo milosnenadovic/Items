@@ -11,5 +11,5 @@ public class Item : BaseAuditableEntity
 	public string Supplier { get; set; } = null!;
 	public decimal Price { get; set; }
 
-	public virtual Category Category { get; set; } = new();
+	public virtual Category? Category { get; set; }
 }

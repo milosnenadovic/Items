@@ -2,6 +2,7 @@
 using Items.Infrastructure.Interfaces;
 using Items.Infrastructure.Context;
 using Items.Domain.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace Items.Infrastructure.Service;
 
@@ -9,10 +10,12 @@ public class ItemService : IItemService
 {
 	#region Setup
 	private readonly IApplicationDbContext _dbContext;
+	private readonly ILogger<ItemService> _logger;
 
-	public ItemService(IApplicationDbContext dbContext)
+	public ItemService(IApplicationDbContext dbContext, ILogger<ItemService> logger)
 	{
 		_dbContext = dbContext;
+		_logger = logger;
 	}
 	#endregion
 
@@ -38,6 +41,7 @@ public class ItemService : IItemService
 	public async Task<List<Item>> GetItems(string? filterName, string? filterDescription, int? category, decimal? minPrice, decimal? maxPrice, DateTime? createdFrom, DateTime? createdTo, bool? active)
 	{
 		var items = _dbContext.Items
+			.Include(x => x.Category)
 			.AsQueryable();
 
 		if (!string.IsNullOrEmpty(filterName))
@@ -80,8 +84,9 @@ public class ItemService : IItemService
 			_dbContext.Items.Add(newItem);
 			await _dbContext.SaveChangesAsync();
 		}
-		catch
+		catch (Exception ex)
 		{
+			_logger.LogWarning(ex.Message);
 			return await Task.FromResult(false);
 		}
 

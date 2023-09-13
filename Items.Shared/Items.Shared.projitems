@@ -9,6 +9,7 @@
     <Import_RootNamespace>Items.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\Items\UpdateItemRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\Items\AddItemRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\Items\GetItemsRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DTO\Common\BaseQueryStringParameters.cs" />

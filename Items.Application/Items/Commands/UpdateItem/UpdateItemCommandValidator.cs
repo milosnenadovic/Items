@@ -1,0 +1,32 @@
+﻿using FluentValidation;
+using Items.Shared.Errors;
+
+namespace Items.Application.Items.Commands.UpdateItem;
+
+public class UpdateItemCommandValidator : AbstractValidator<UpdateItemCommand>
+{
+    public UpdateItemCommandValidator()
+	{
+		RuleFor(v => v.Id)
+			.NotNull().WithMessage(Errors.Required.Id)
+			.GreaterThan(0).WithMessage(Errors.InvalidData.Id);
+		RuleFor(v => v.Name)
+            .NotEmpty().WithMessage(Errors.Required.Name)
+            .MaximumLength(48).WithMessage(Errors.InvalidData.NameLongerThan48);
+        RuleFor(v => v.Description)
+            .NotEmpty().WithMessage(Errors.Required.Description)
+            .MaximumLength(96).WithMessage(Errors.InvalidData.DescriptionLongerThan96);
+        RuleFor(v => v.CategoryId)
+            .NotNull().WithMessage(Errors.Required.Category)
+            .GreaterThan(0).WithMessage(Errors.InvalidData.CategoryId);
+        RuleFor(v => v.Producer)
+            .NotEmpty().WithMessage(Errors.Required.Producer)
+            .MaximumLength(48).WithMessage(Errors.InvalidData.ProducerLongerThan48);
+        RuleFor(v => v.Supplier)
+            .NotEmpty().WithMessage(Errors.Required.Supplier)
+            .MaximumLength(48).WithMessage(Errors.InvalidData.SupplierLongerThan48);
+        RuleFor(v => v.Price)
+            .NotNull().WithMessage(Errors.Required.Price)
+            .GreaterThan(0).WithMessage(Errors.InvalidData.Price);
+    }
+}

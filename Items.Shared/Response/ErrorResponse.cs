@@ -36,19 +36,19 @@ public class ErrorResponse : IResponse
 	}
 
 	public static ErrorResponse Error(int? errorCode, string message)
-		=> new ErrorResponse(errorCode, message);
+		=> new(errorCode, message);
 
 	public static ErrorResponse<T> Error<T>(int? errorCode)
-		=> new ErrorResponse<T>(errorCode);
+		=> new(errorCode);
 
 	public static ErrorResponse<T> Error<T>(int? errorCode, Exception ex)
-		=> new ErrorResponse<T>(errorCode, ex);
+		=> new(errorCode, ex);
 
 	public static ErrorResponse<T> Error<T>(int? errorCode, string message, string detailedMessage = "")
-		=> new ErrorResponse<T>(errorCode, message, detailedMessage);
+		=> new(errorCode, message, detailedMessage);
 
-	public static ErrorResponse<T> Error<T>(ErrorResponse fireBlocksResponse)
-		=> new ErrorResponse<T>(fireBlocksResponse.ErrorCode, fireBlocksResponse.Message, fireBlocksResponse.DetailedMessage);
+	public static ErrorResponse<T> Error<T>(ErrorResponse errorResponse)
+		=> new(errorResponse.ErrorCode, errorResponse.Message, errorResponse.DetailedMessage);
 }
 
 public class ErrorResponse<T> : ErrorResponse, IResponse<T>

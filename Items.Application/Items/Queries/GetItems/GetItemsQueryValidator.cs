@@ -7,6 +7,10 @@ public class GetItemsQueryValidator : AbstractValidator<GetItemsQuery>
 {
 	public GetItemsQueryValidator()
 	{
+		RuleFor(v => v.FilterName)
+			.MaximumLength(48).WithMessage(Errors.InvalidData.NameLongerThan48);
+		RuleFor(v => v.FilterDescription)
+			.MaximumLength(96).WithMessage(Errors.InvalidData.DescriptionLongerThan96);
 		RuleFor(v => v.PageNumber)
 			.NotNull().WithMessage(Errors.Required.PageNumber)
 			.GreaterThan(0).WithMessage(Errors.InvalidData.PageNumber);
